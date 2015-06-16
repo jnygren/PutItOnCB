@@ -1,8 +1,4 @@
-﻿// Preprocessor symbols must be defined before the first token in the file.
-#define AUDIBLE
-//#define PROMPTFORCLOSE
-
-// Namespaces
+﻿// Namespaces
 using System;
 using System.Windows;   // For Clipboard class. (Add reference to PresentationCore.)
 
@@ -10,36 +6,38 @@ namespace PutItOnCB
 {
     class Program
     {
-        private static string cbText = "Tlhfckoctbcr$1955#170&Sex";
         private static string errMessage = "";
 
         [STAThread]
         static void Main(string[] args)
         {
             bool success = false;
-            Console.WriteLine("PutItOnCB Ver. 1.2 - Wednesday, January 21, 2015 - Jeff Nygren");
+            Console.WriteLine("\tPutItOnCB Ver. 1.3 - June 16, 2015 - Jeff Nygren\n");
 
-            // WorkAround for CLIPBRD_E_CANT_OPEN exception
-            for (int i = 0; i < 10; i++)
+            if (CommandLineParser.ParseCommandLine(args))
             {
-                if (success = TrySetText(CBText))
-                    break;
-                System.Threading.Thread.Sleep(300);
+                // WorkAround for CLIPBRD_E_CANT_OPEN exception
+                for (int i = 0; i < 10; i++)
+                {
+                    if (success = TrySetText(Properties.Settings.Default.ClipBoardText))
+                        break;
+                    System.Threading.Thread.Sleep(300);
+                }
+
+                if (!success)
+                {
+                    // Display exception message, wait for keypress.
+                    Console.Write("\n{0}  Press any key to continue...", errMessage); Console.ReadKey();
+                }
             }
 
-            if (!success)
+            if (Properties.Settings.Default.Audible)
+                System.Media.SystemSounds.Beep.Play();  // Indicate that program ran.
+
+            if (Properties.Settings.Default.ClosePrompt)
             {
-                // Display exception message, wait for keypress.
-                Console.Write("\n{0}  Press any key to continue...", errMessage); Console.ReadKey();
+                Console.Write("\nPress any key to exit..."); Console.ReadKey();
             }
-
-#if AUDIBLE
-            System.Media.SystemSounds.Beep.Play();  // Indicate that program ran.
-#endif
-
-#if PROMPTFORCLOSE
-            Console.Write("\nPress any key to exit..."); Console.ReadKey();
-#endif
         }
 
 
@@ -54,7 +52,7 @@ namespace PutItOnCB
 
             try
             {
-                Clipboard.SetText(CBText);  // Put text on ClipBoard
+                Clipboard.SetText(text);  // Put text on ClipBoard
             }
             catch (Exception ex)
             {
@@ -66,11 +64,5 @@ namespace PutItOnCB
             return result;
         }
 
-
-        // Properties
-        private static string CBText {
-            get { return cbText; }
-            set { cbText = value; }
-        }
     }
 }
