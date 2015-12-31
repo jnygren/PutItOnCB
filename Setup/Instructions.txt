@@ -1,0 +1,15 @@
+﻿	Inno Setup Instructions
+
+Do not try to add a 'Setup' project. Just add a solution folder, and keep your
+setup files (Inno Setup Scripts) in it.
+
+InnoSetup installed from VirtualBox Shared Folders.
+
+Example .iss files: C:\Program Files (x86)\Inno Setup 5\Examples
+
+To create setup/installer for app, open Inno Setup Script (.iss) in compiler.
+
+
+
+
+================================================================================

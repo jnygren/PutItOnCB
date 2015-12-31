@@ -2,15 +2,27 @@
 
 "Put In On the ClipBoard" puts a fixed string on the system clipboard.
 
-Program.cs is all of the code for this program. If you want to build the 
-application, create a new C# .NET 3.5 'Console' app in Visual Studio. (This was
-created using VS2010.) Replace the VS-generated Program.cs file with this one.
-That's all there is to it. 
+Normally you will just run the program, with no command line arguments.
+This will put the stored text on the clipboard, ready to paste where ever you
+need it.
 
-Note: No installation or uninstall is required. Just run the program on any
-Windows system with the appropriate version of .NET.
+Command line arguments are used ONLY to configure the program. Nothing is put
+on the clipboard when any command line argument is specified.
 
+Usage: PutItOnCB [/?][/H][/B][/S][/P][/Q][/V][/C][/T ["text"]]
+/?, /H(elp) - Display 'Help' screen.
+/B(eep) - Privide audible indication at program exit.
+/S(ilent) - Turn off the audible, program exit indication.
+/P(rompt) - Prompt to 'Press any key' before closing the program window.
+/Q(uiet) - No prompt is used.
+/V(iew) - View the current configuration settings.
+/C(onfig) - Display a GUI configuration screen.
+/T(ext) [text string] - Set the text to be placed on the clipboard. If text
+contains spaces, enclose it in quotation marks. If no text string is provided,
+the stored text is cleared.
 
--- Jeff Nygren
+Arguments may begin with either a dash '-' or a slash '/', are not case
+sensitive, and may be shortened to just the first character.
+
 
 ================================================================================
